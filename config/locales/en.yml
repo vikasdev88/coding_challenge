@@ -41,3 +41,4 @@ en:
   ovens:
     empty:
       oven_emptied: 'Oven emptied!'
+      still_cooking: 'Still Cooking!!'

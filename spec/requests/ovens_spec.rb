@@ -93,7 +93,7 @@ describe OvensController do
       end
 
       it "moves the oven's cookie to the user" do
-        cookie = create(:cookie, storage: oven)
+        cookie = create(:cookie, storage: oven, status: 'ready')
 
         post "/ovens/#{oven.id}/empty"
 

@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2018_01_16_140702) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_27_123245) do
   create_table "cookies", force: :cascade do |t|
     t.text "fillings"
     t.string "storage_type"
     t.integer "storage_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.integer "status", default: 0
     t.index ["storage_type", "storage_id"], name: "index_cookies_on_storage_type_and_storage_id"
   end
 

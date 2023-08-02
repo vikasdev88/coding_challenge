@@ -2,7 +2,10 @@ default: &default
   maximum_cookies_allowed_in_an_oven: 12
 development:
   <<: *default
+  cookie_preparation_job_delay: <%= 1.minutes %>
 test:
   <<: *default
+  cookie_preparation_job_delay: <%= 1.second %>
 production:
   <<: *default
+  cookie_preparation_job_delay: <%= 5.minutes %>

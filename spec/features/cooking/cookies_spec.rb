@@ -16,6 +16,12 @@ feature 'Cooking cookies' do
     expect(page).to have_content 'Chocolate Chip'
 
     click_button 'Retrieve Cookie'
+
+    expect(page).to have_content 'Still Cooking!!'
+
+    wait_for_cookies_to_be_ready(oven)
+
+    click_button 'Retrieve Cookie'
     expect(page).to_not have_content 'Chocolate Chip'
     expect(page).to_not have_content 'Your Cookie is Ready'
 
@@ -49,13 +55,15 @@ feature 'Cooking cookies' do
     oven = create(:oven, user: user)
     visit oven_path(oven)
 
-    3.times do
-      click_link_or_button 'Prepare Cookie'
-      fill_in 'Fillings', with: 'Chocolate Chip'
-      click_button 'Mix and bake'
+    click_link_or_button 'Prepare Cookie'
+    fill_in 'Fillings', with: 'Chocolate Chip'
+    fill_in 'Number of cookie', with: 3
 
-      click_button 'Retrieve Cookie'
-    end
+    click_button 'Mix and bake'
+
+    wait_for_cookies_to_be_ready(oven)
+
+    click_button 'Retrieve Cookie'
 
     visit root_path
     within '.store-inventory' do

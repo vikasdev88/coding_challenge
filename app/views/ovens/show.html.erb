@@ -7,7 +7,14 @@
       <p>
         <%= pluralize(cookies.count, "Cookie") %>
         with
-        <%= fillings || "no filling" %>
+        <%= fillings.present? ? fillings : "no filling" %>
+        <span class="bold">
+          <% if cookies.first.cooking? %>
+            (Cookies on their way!)
+          <% else %>
+            (Cookies are ready now!)
+          <% end %>
+        </span>
       </p>
     <% end %>
     <%= button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny' %>
