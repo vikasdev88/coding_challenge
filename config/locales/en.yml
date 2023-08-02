@@ -30,4 +30,14 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  cookies:
+    create:
+      valid_quantity: 'Enter valid quantity'
+    new:
+      cookie_already_in_oven: 'A cookie is already in the oven!'
+      cookie_quantity: 'Number of cookies'
+      fillings: 'Fillings'
+      mix_and_bake: 'Mix and bake'
+  ovens:
+    empty:
+      oven_emptied: 'Oven emptied!'

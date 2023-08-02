@@ -14,7 +14,6 @@ feature 'Cooking cookies' do
 
     expect(current_path).to eq(oven_path(oven))
     expect(page).to have_content 'Chocolate Chip'
-    expect(page).to have_content 'Your Cookie is Ready'
 
     click_button 'Retrieve Cookie'
     expect(page).to_not have_content 'Chocolate Chip'

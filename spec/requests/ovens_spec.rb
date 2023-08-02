@@ -97,7 +97,7 @@ describe OvensController do
 
         post "/ovens/#{oven.id}/empty"
 
-        expect(oven.cookie).to be_nil
+        expect(oven.cookies).to be_empty
         expect(user.stored_cookies.to_a).to match_array([cookie])
       end
 

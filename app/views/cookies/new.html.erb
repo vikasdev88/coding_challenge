@@ -1,9 +1,9 @@
 <h3>New Cookie for oven '<%= @oven.name %>'</h3>
 
-<%= form_for [@oven, @cookie] do |f| %>
+<%= form_for [@oven, @oven.cookies.build] do |f| %>
   <div class="row">
     <div class="small-8 columns">
-      <%= f.label :fillings %>
+      <%= f.label :fillings, t('.fillings') %>
     </div>
   </div>
   
@@ -15,7 +15,20 @@
 
   <div class="row">
     <div class="small-8 columns">
-      <%= f.submit 'Mix and bake', class: 'button' %>
+      <%= f.label :quantity, t('.cookie_quantity') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-8 columns">
+      <%= f.number_field :quantity, value: 1, min: 1, max: 12 %>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="small-8 columns">
+      <%= f.submit t('.mix_and_bake'), class: 'button' %>
     </div>
   </div>
 <% end %>

@@ -1,4 +1,5 @@
 require_relative 'boot'
+require_relative 'settings'
 
 require 'rails/all'
 
@@ -34,5 +35,6 @@ module CodingChallenge
     config.generators.system_tests = nil
 
     config.proscenium.include_paths << 'app/components'
+    config.settings = config_for(:settings).with_indifferent_access
   end
 end
