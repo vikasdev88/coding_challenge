@@ -22,7 +22,7 @@ const OrderTable = ({ orders, onFulfillOrderHandler, onSortHandler }) => {
       </thead>
       <tbody>
         {orders.map((order) => (
-          <OrderRow order={order} onFulfillOrderHandler={onFulfillOrderHandler} />
+          <OrderRow key={order.id} order={order} onFulfillOrderHandler={onFulfillOrderHandler} />
         ))}
       </tbody>
     </table>
