@@ -1,14 +1,19 @@
 import React from "react";
 
-const OrderTable = ({ orders, onFulfillOrderHandler }) => {
+const OrderTable = ({ orders, onFulfillOrderHandler, onSortHandler }) => {
+  const clickHandler = (event, sortByColumnName) => {
+    event.preventDefault();
+    onSortHandler(sortByColumnName);
+  }
+
   return (
     <table className="table orders-table">
       <thead>
         <tr>
-          <th>Order #</th>
+          <th><a className="sortable" onClick={(event) => clickHandler(event, 'id')}>Order #</a></th>
           <th>Ordered at</th>
-          <th>Pick up at</th>
-          <th>Customer Name</th>
+          <th><a className="sortable" onClick={(event) => clickHandler(event, 'pick_up_at')}>Pick up at</a></th>
+          <th><a className="sortable" onClick={(event) => clickHandler(event, 'customer_name')}>Customer Name</a></th>
           <th>Item</th>
           <th>Qty</th>
           <th>Status</th>

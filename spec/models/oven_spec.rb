@@ -4,12 +4,12 @@ describe Oven do
   subject { Oven.new }
 
   describe "associations" do
-    it { should belong_to(:user) }
-    it { should have_many(:cookies) }
+    it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_many(:cookies).class_name('Cookie').dependent(:destroy) }
   end
 
   describe "validations" do
-    it { should validate_presence_of(:user) }
+    it { is_expected.to validate_presence_of(:user) }
   end
 
   describe "Instance Methods" do

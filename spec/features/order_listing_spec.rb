@@ -40,4 +40,15 @@ feature 'Order listing', :devise, :js do
       expect(page).to_not have_button 'Fulfill order'
     end
   end
+
+  scenario 'user can sort orders' do
+    visit root_path
+    click_link "Order listing"
+
+    expect(page).to have_selector(".table.orders-table tbody tr:nth-child(1) td:nth-child(1)", text: '10')
+
+    find('.sortable', text: 'Order #').click
+
+    expect(page).to have_selector('.table.orders-table tbody tr:nth-child(1) td:nth-child(1)', text: '1')
+  end
 end

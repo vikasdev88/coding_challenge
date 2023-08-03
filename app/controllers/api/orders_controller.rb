@@ -1,7 +1,10 @@
 class Api::OrdersController < Api::BaseController
   def index
     sleep 1 unless Rails.env.test? # simulate delay in loading
-    @orders = Order.all.order(created_at: :desc)
+    sort_column = params[:sort_column].presence || 'created_at'
+    sort_direction = params[:sort_direction].presence || 'desc'
+
+    @orders = Order.sorted(sort_column, sort_direction)
   end
 
   def fulfill

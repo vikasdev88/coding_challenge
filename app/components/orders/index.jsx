@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import Table from "./table";
 import LoadingSpinner from "../utils/LoadingSpinner";
 
-const fetchOrders = async () => {
-  const response = await fetch("/api/orders.json");
+const fetchOrders = async (sortBy, sortDirection) => {
+  const params = new URLSearchParams({
+    sort_column: sortBy,
+    sort_direction: sortDirection
+  });
+
+  const response = await fetch(`/api/orders.json?${params}`)
   const data = await response.json();
   return data;
 };
@@ -20,6 +25,8 @@ const fulfillOrder = async (orderId) => {
 export default () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [sortBy, setSortBy] = useState("created_at");
+  const [sortDirection, setSortDirection] = useState("desc");
 
   const fulfillOrderHandler = async (orderId) => {
     const fulfilledOrder = await fulfillOrder(orderId);
@@ -32,10 +39,19 @@ export default () => {
     setOrders(updatedOrders);
   }
 
+  const sortHandler = (sortByColumnName) => {
+    if (sortByColumnName == sortBy) {
+      setSortDirection((prevSortBy) => prevSortBy == 'asc' ? 'desc' : 'asc')
+    } else {
+      setSortBy(sortByColumnName);
+      setSortDirection('asc');
+    }
+  }
+
   useEffect(() => {
     const go = async () => {
       try {
-        const orders = await fetchOrders();
+        const orders = await fetchOrders(sortBy, sortDirection);
         setOrders(orders);
         setLoading(false);
       } catch (er) {
@@ -44,11 +60,11 @@ export default () => {
       }
     };
     go();
-  }, []);
+  }, [sortBy, sortDirection]);
 
   return (
     <>
-      { loading ? <LoadingSpinner /> : <Table orders={orders} onFulfillOrderHandler={fulfillOrderHandler} /> }
+      { loading ? <LoadingSpinner /> : <Table orders={orders} onFulfillOrderHandler={fulfillOrderHandler} onSortHandler={sortHandler} /> }
     </>
   )
 };
