@@ -23,5 +23,21 @@ feature 'Order listing', :devise, :js do
     expect(page).to have_text orders[0].customer_name
     expect(page).to have_text orders[0].quantity
     expect(page).to have_text orders[0].item
+    expect(page).to have_text 'In progress'
+    expect(page).to have_button 'Fulfill order'
+  end
+
+  scenario 'user can Fulfill order' do
+    visit root_path
+    click_link "Order listing"
+
+    within ".orders-table tr.order-#{orders[0].id}" do
+      expect(page).to have_text 'In progress'
+      expect(page).to have_button 'Fulfill order'
+      click_button 'Fulfill order'
+
+      expect(page).to have_text 'Fulfilled'
+      expect(page).to_not have_button 'Fulfill order'
+    end
   end
 end
