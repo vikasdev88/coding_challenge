@@ -1,25 +1,19 @@
 <h3><%= @oven.name %></h3>
 
-<div class="cookie-info">
-  Cookie in oven:
+<%= content_tag :div, class: 'cookie-info', data: { controller: 'polling', polling_url_value: "/ovens/#{@oven.id}/cookies_status", polling_interval_value: Settings.cookie_polling_interval&.in_milliseconds, polling_cookies_ready_value: @oven.cookies.ready.present? } do %>
   <% if @oven.cookies.present? %>
+    <span><%= t('.cookie_in_oven') %></span>
     <% @oven.cookies.group_by(&:fillings).each_pair do |fillings, cookies| %>
       <p>
         <%= pluralize(cookies.count, "Cookie") %>
         with
-        <%= fillings.present? ? fillings : "no filling" %>
-        <span class="bold">
-          <% if cookies.first.cooking? %>
-            (Cookies on their way!)
-          <% else %>
-            (Cookies are ready now!)
-          <% end %>
-        </span>
+        <%= fillings.present? ? fillings : t('.no_filling') %>
+        <span data-polling-target="status"><%= @oven.cookies.cooking.present? ? t('.cookies_on_their_way') : t('.cookies_ready_now') %></span>
       </p>
     <% end %>
-    <%= button_to "Retrieve Cookie", empty_oven_path, class: 'button tiny' %>
+    <%= button_to t('.retrieve_cookie'), empty_oven_path, class: 'button tiny' %>
   <% end %>
-</div>
+<% end %>
 
 <br/>
-<%= link_to "Prepare Cookie", new_oven_cookies_path(@oven), class: 'button' %>
+<%= link_to t('.prepare_cookie'), new_oven_cookies_path(@oven), class: 'button' %>

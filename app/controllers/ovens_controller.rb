@@ -8,6 +8,12 @@ class OvensController < ApplicationController
 
   def show; end
 
+  def cookies_status
+    cookies_ready = @oven.cookies.ready.present?
+    cookies_status = cookies_ready ? t('.cookies_ready_now') : t('.cookies_on_their_way')
+    render json: { cookies_ready:, cookies_status: }
+  end
+
   def empty
     if @oven.cookies.ready.present?
       @oven.cookies.ready.update!(storage: current_user)

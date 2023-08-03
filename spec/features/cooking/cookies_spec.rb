@@ -1,4 +1,4 @@
-feature 'Cooking cookies' do
+feature 'Cooking cookies', :js do
   scenario 'Cooking a single cookie' do
     user = create_and_signin
     oven = user.ovens.first
@@ -14,12 +14,15 @@ feature 'Cooking cookies' do
 
     expect(current_path).to eq(oven_path(oven))
     expect(page).to have_content 'Chocolate Chip'
+    expect(page).to have_content 'Cookies on their way!'
 
     click_button 'Retrieve Cookie'
 
     expect(page).to have_content 'Still Cooking!!'
 
     wait_for_cookies_to_be_ready(oven)
+
+    expect(page).to have_content 'Cookies are ready now!'
 
     click_button 'Retrieve Cookie'
     expect(page).to_not have_content 'Chocolate Chip'

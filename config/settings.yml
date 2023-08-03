@@ -3,9 +3,12 @@ default: &default
 development:
   <<: *default
   cookie_preparation_job_delay: <%= 1.minutes %>
+  cookie_polling_interval: <%= 10.seconds %>
 test:
   <<: *default
   cookie_preparation_job_delay: <%= 1.second %>
+  cookie_polling_interval: <%= 1.second %>
 production:
   <<: *default
   cookie_preparation_job_delay: <%= 5.minutes %>
+  cookie_polling_interval: <%= 1.minute %>
